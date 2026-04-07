@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="今日待办">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAE3UlEQVR4nO3cTU7jWBSAUQfVqBBL6A30sJDYBEK9VoR6E0hVQzbAElDVlBq0Um1M4p/4Je/d63NGiAFY8cfNdYKz6xrx/vP7e+1j4HS769td7WPouq6rdhACzq1W4Bf9pSLepkvGffZfJGL6zh332X64kBlzrrCL/1Ahs0TpsK9K/jAxs1TpZor8dQiZEkpM69UTWsyUUqKlVUGLmdLWNnXSiBcyl3DKCrJ4QouZSzmltUVBi5lLW9rc7KDFTC1L2iv6OjTUNito05na5jY4GbSYacWcFkeDFjOtmWrSDk0qR4M2nWnVWJsHgxYzrTvWqJWDVD4FbToTxaFWTWhS+RC06Uw0w2ZNaFIRNKn8Cdq6QVT9dk1oUhE0qVx1nXWD+PYNm9CkImhSETSp7OzPZGJCk8qX2gdw1Ndv/9Y+BCb8+nFf+xCG2ls5hBxPQ2G3tXKIOaaGzls7QTf0oHCCRs5fG0E38mCwUgPnsY2goZD6QTfwV01Blc9n/aChIEGTiqBJRdCkImhSETSpCJpUBE0qgiYVQZOKoElF0KQiaFIRNKkImlQETSqCJhVBk4qgSaXdT06a6e354dOHnNzcPblPcaNCT+hDMY99n/zCBj0jWlFvUMigp2K+uXvafynqjQkX9JJ14u35wfqxMeEvCof20/nt+eHD919fHoU94a+//wl/MR1uQvfd3D3114sPX7NNoYPuT+F+zMPpzHakWDnmxJzh6ZRp4Sb08E2TfsCHYvYmy7aEC7rrPkY6tjeLeXtCBt11/8e6n8rD6SzmbQobdNd9jnr4fbYn/EWheOkLPaFhSNCkImhSETSpCJpUBE0qgiYVQZNK+DdWDv3jvv+s267QE/rYXSjuTtmusBN6H+2hafz68nj/+vJ4b1JvT8gJPRZz//sm9faEC3oq5j1Rb1PYlWMpYU/LsKKFm9AwRtCkspmVI8PTKdPCTei5F3tzLx7JJVzQXTcdtZi3a/f+8/t71SP4+u3k6MamtJgr+vWj2itKISf03tQbK2xP+ItC8dIXekLDkKBJRdCkImhSETSpCJpUBE0qgiaV8G+suOubvtAT2l3fDIWd0O765pCQE9pd3xwTLmh3fTMm7MqxlLCnZVjRwk1oGCNoUtnMypHh6ZRp4Sa0u74ZEy7ornPXN8e565vy3PV9Gnd9MxT+olC89IWe0DAkaFIRNKkImlQETSqCJhVBk4qgSUXQpCJoUhE0qQiaVARNKoImFUGTiqBJRdCkImhSETSp1A+64h3CnEHl81k/aCiojaBN6RwaOI9tBN11TTwYrNDI+Wsn6K5r5kFhoYbOW/2PAjtmxUeEcSENhbzXbtBwgqvd9e2u9kFACbvr211bOzSsJGhSETSpXHXdf7tH7QOBNfYNm9CkImhS+RO0tYOo+u2a0KQiaFL5ELS1g2iGzZrQpPIpaFOaKA61akKTysGgTWlad6zRoxNa1LRqrE0rB6mMBm1K05qpJicntKhpxZwWZ60coqa2uQ3aoUlldtCmNLUsaW/RhBY1l7a0ucUrh6i5lFNaWxWnD6nhHNYMzVUXhaY1pa1tavWrHKKmlBItFY3RCsIpSg7Foq9Dm9YsVbqZswVoWjPmXMPv7BNV2PSd+1n8oiuCuLfpkqtotZ1X3LnVup5q5iJO4LG18oLAb5EDuQ3H+fX8AAAAAElFTkSuQmCC">
+<title>今日待办</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  :root {
+    --bg: #F5F0E8;
+    --card: #FFFAE6;
+    --card-shadow: rgba(180, 160, 120, 0.15);
+    --text: #3D3425;
+    --text-light: #A89B85;
+    --accent: #F2C94C;
+    --accent-soft: #FCEABB;
+    --done: #C8BFAE;
+    --line: #E8DFC8;
+    --danger: #E57373;
+    --safe-top: env(safe-area-inset-top, 20px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  body {
+    font-family: 'Noto Sans SC', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100dvh;
+    padding-top: var(--safe-top);
+    padding-bottom: calc(var(--safe-bottom) + 80px);
+    overflow-x: hidden;
+  }
+
+  /* subtle grid pattern */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 16px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 20px 0 8px;
+  }
+
+  .header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: var(--text);
+  }
+
+  .header .date {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-top: 4px;
+    font-weight: 300;
+  }
+
+  /* Input area */
+  .input-area {
+    display: flex;
+    gap: 8px;
+    margin: 20px 0 16px;
+  }
+
+  .input-area input {
+    flex: 1;
+    height: 46px;
+    border: 2px solid var(--line);
+    border-radius: 12px;
+    padding: 0 16px;
+    font-size: 15px;
+    font-family: inherit;
+    background: #fff;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .input-area input:focus {
+    border-color: var(--accent);
+  }
+
+  .input-area input::placeholder {
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .input-area button {
+    width: 46px;
+    height: 46px;
+    border: none;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 24px;
+    font-weight: 300;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.15s, background 0.2s;
+    box-shadow: 0 2px 8px rgba(242, 201, 76, 0.35);
+  }
+
+  .input-area button:active {
+    transform: scale(0.92);
+  }
+
+  /* Card */
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 6px 0;
+    box-shadow: 0 4px 20px var(--card-shadow);
+    min-height: 80px;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+  /* Todo items */
+  .todo-item {
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    gap: 14px;
+    border-bottom: 1px solid var(--line);
+    transition: opacity 0.35s, transform 0.35s;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .todo-item:last-child { border-bottom: none; }
+
+  .todo-item.completing {
+    animation: completeSlide 0.4s ease forwards;
+  }
+
+  @keyframes completeSlide {
+    0% { transform: translateX(0); opacity: 1; }
+    50% { transform: translateX(8px); opacity: 0.6; }
+    100% { transform: translateX(0); opacity: 1; }
+  }
+
+  .check-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--line);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s;
+  }
+
+  .todo-item.done .check-circle {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .check-circle svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.25s;
+  }
+
+  .todo-item.done .check-circle svg {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .todo-text {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.4;
+    transition: color 0.3s;
+    word-break: break-all;
+  }
+
+  .todo-item.done .todo-text {
+    color: var(--done);
+    text-decoration: line-through;
+    text-decoration-color: var(--done);
+  }
+
+  .delete-btn {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: none;
+    color: var(--text-light);
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 6px;
+  }
+
+  .todo-item:hover .delete-btn,
+  .todo-item:active .delete-btn {
+    opacity: 1;
+  }
+
+  /* on touch devices, always show */
+  @media (hover: none) {
+    .delete-btn { opacity: 0.5; }
+  }
+
+  .delete-btn:active {
+    color: var(--danger);
+    background: rgba(229, 115, 115, 0.1);
+  }
+
+  /* Stats bar */
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  .stats span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .stats .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .dot.pending { background: var(--accent); }
+  .dot.completed { background: var(--done); }
+
+  /* Clear done button */
+  .clear-btn {
+    display: block;
+    margin: 16px auto 0;
+    padding: 8px 20px;
+    border: 1.5px solid var(--line);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--text-light);
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .clear-btn:active {
+    border-color: var(--danger);
+    color: var(--danger);
+  }
+
+  .clear-btn.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>今日待办</h1>
+    <div class="date" id="dateDisplay"></div>
+  </div>
+
+  <div class="input-area">
+    <input type="text" id="todoInput" placeholder="添加新事项…" enterkeyhint="done">
+    <button id="addBtn" aria-label="添加">+</button>
+  </div>
+
+  <div class="card" id="todoList">
+    <div class="empty-state" id="emptyState">暂无待办事项</div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+  <button class="clear-btn hidden" id="clearBtn">清除已完成</button>
+</div>
+
+<script>
+const STORAGE_KEY = 'mini_todo_v1';
+const todoInput = document.getElementById('todoInput');
+const addBtn = document.getElementById('addBtn');
+const todoList = document.getElementById('todoList');
+const emptyState = document.getElementById('emptyState');
+const statsEl = document.getElementById('stats');
+const clearBtn = document.getElementById('clearBtn');
+const dateDisplay = document.getElementById('dateDisplay');
+
+// Date display
+const now = new Date();
+const weekdays = ['日','一','二','三','四','五','六'];
+dateDisplay.textContent = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 星期${weekdays[now.getDay()]}`;
+
+// Load todos
+let todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+// Check if date changed, clear done items from previous days
+const today = now.toISOString().slice(0, 10);
+const lastDate = localStorage.getItem('mini_todo_date');
+if (lastDate && lastDate !== today) {
+  todos = todos.filter(t => !t.done);
+}
+localStorage.setItem('mini_todo_date', today);
+
+function saveTodos() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+}
+
+function createCheckSVG() {
+  return `<svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 7 5.5 10.5 11.5 3.5"/></svg>`;
+}
+
+function renderTodos() {
+  // sort: pending first, done last
+  todos.sort((a, b) => a.done - b.done);
+  saveTodos();
+
+  const pending = todos.filter(t => !t.done).length;
+  const done = todos.filter(t => t.done).length;
+
+  if (todos.length === 0) {
+    todoList.innerHTML = '';
+    todoList.appendChild(emptyState);
+    emptyState.style.display = 'block';
+    statsEl.innerHTML = '';
+    clearBtn.classList.add('hidden');
+    return;
+  }
+
+  emptyState.style.display = 'none';
+  todoList.innerHTML = '';
+
+  todos.forEach((todo, i) => {
+    const item = document.createElement('div');
+    item.className = 'todo-item' + (todo.done ? ' done' : '');
+    item.innerHTML = `
+      <div class="check-circle">${createCheckSVG()}</div>
+      <span class="todo-text">${escapeHtml(todo.text)}</span>
+      <button class="delete-btn" aria-label="删除">×</button>
+    `;
+
+    // Toggle done
+    item.addEventListener('click', (e) => {
+      if (e.target.closest('.delete-btn')) return;
+      todo.done = !todo.done;
+      if (todo.done) {
+        item.classList.add('completing');
+        setTimeout(() => renderTodos(), 350);
+      } else {
+        renderTodos();
+      }
+    });
+
+    // Delete
+    item.querySelector('.delete-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      item.style.transform = 'translateX(-100%)';
+      item.style.opacity = '0';
+      setTimeout(() => {
+        todos.splice(i, 1);
+        renderTodos();
+      }, 250);
+    });
+
+    todoList.appendChild(item);
+  });
+
+  statsEl.innerHTML = `
+    <span><span class="dot pending"></span>${pending} 待完成</span>
+    <span><span class="dot completed"></span>${done} 已完成</span>
+  `;
+
+  clearBtn.classList.toggle('hidden', done === 0);
+}
+
+function escapeHtml(text) {
+  const d = document.createElement('div');
+  d.textContent = text;
+  return d.innerHTML;
+}
+
+function addTodo() {
+  const text = todoInput.value.trim();
+  if (!text) return;
+  todos.unshift({ text, done: false, id: Date.now() });
+  todoInput.value = '';
+  renderTodos();
+}
+
+addBtn.addEventListener('click', addTodo);
+todoInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') addTodo();
+});
+
+clearBtn.addEventListener('click', () => {
+  todos = todos.filter(t => !t.done);
+  renderTodos();
+});
+
+renderTodos();
+</script>
+</body>
+</html>
