@@ -415,6 +415,11 @@ clearBtn.addEventListener('click', () => {
 });
 
 renderTodos();
+
+// Register Service Worker for offline caching
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+}
 </script>
 </body>
 </html>
