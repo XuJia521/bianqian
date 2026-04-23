@@ -1,13 +1,16 @@
-const CACHE_NAME = 'todo-v2';
+const CACHE_NAME = 'todo-v3';
+const ASSETS = [
+  './',
+  './index.html',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png',
+  './apple-touch-icon.png'
+];
 
 self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll([
-        './',
-        './index.html'
-      ]);
-    })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
   );
   self.skipWaiting();
 });
@@ -22,6 +25,8 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
+  if (e.request.method !== 'GET') return;
+
   e.respondWith(
     caches.match(e.request).then(cached => {
       // Cache-first, then network update

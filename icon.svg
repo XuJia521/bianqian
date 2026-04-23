@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCEABB"/>
+      <stop offset="100%" stop-color="#F5DA8E"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+      <feOffset dx="0" dy="3" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.15"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- 背景圆角方 -->
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+
+  <!-- 白色卡片 -->
+  <rect x="120" y="140" width="272" height="232" rx="24" fill="#FFFFFF" filter="url(#shadow)"/>
+
+  <!-- 第1项：已勾选圆 + 线 -->
+  <g>
+    <circle cx="172" cy="198" r="16" fill="none" stroke="#F2C94C" stroke-width="4"/>
+    <polyline points="163,199 170,206 182,192" fill="none" stroke="#F2C94C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="204" y="194" width="152" height="8" rx="4" fill="#E8DFC8"/>
+  </g>
+
+  <!-- 第2项：空心圆 + 线 -->
+  <g>
+    <circle cx="172" cy="256" r="16" fill="none" stroke="#E8DFC8" stroke-width="4"/>
+    <rect x="204" y="252" width="152" height="8" rx="4" fill="#E8DFC8"/>
+  </g>
+
+  <!-- 第3项：空心圆 + 线 -->
+  <g>
+    <circle cx="172" cy="314" r="16" fill="none" stroke="#E8DFC8" stroke-width="4"/>
+    <rect x="204" y="310" width="120" height="8" rx="4" fill="#E8DFC8"/>
+  </g>
+</svg>
